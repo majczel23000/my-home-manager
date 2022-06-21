@@ -1,0 +1,8 @@
+<mat-card [style.background-color]="shoppingList?.color">
+  <mat-card-title>{{shoppingList?.name}}</mat-card-title>
+  <mat-card-subtitle>{{shoppingList?.description}}</mat-card-subtitle>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="goToDetails()">Show</button>
+    <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+  </mat-card-actions>
+</mat-card>
