@@ -16,7 +16,7 @@ const routes: Routes = [
     component: ShoppingListComponent,
   },
   {
-    path: 'lists/:code',
+    path: 'lists/:id',
     component: ShoppingListDetailsComponent,
   },
   {

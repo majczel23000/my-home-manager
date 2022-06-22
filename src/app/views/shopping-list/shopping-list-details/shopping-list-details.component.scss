@@ -1,0 +1,25 @@
+.mat-list-text {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+}
+
+mat-list-option {
+  padding: 10px 0 !important;
+}
+
+.details-item {
+  font-size: 1.5em !important;
+  font-weight: bold !important;
+  display: block !important;
+  word-break: break-all;
+}
+
+.add-shopping-list {
+  padding: 20px;
+
+  mat-form-field {
+    width: 100%;
+  }
+}

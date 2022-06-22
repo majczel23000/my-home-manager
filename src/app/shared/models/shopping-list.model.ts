@@ -3,5 +3,11 @@ export class ShoppingListModel {
   name?: string;
   description?: string;
   color?: string;
-  elements?: string[];
+  elements?: [
+    {
+      isAdded: boolean;
+      item: string;
+      quantity: string;
+    }
+  ];
 }

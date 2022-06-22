@@ -17,9 +17,24 @@ export class ShoppingListService {
     return this.firestore.collection('shopping-lists').snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
-          ({ id: c.payload.doc.id, ...(c.payload.doc.data() as ShoppingListModel)})
+          ({
+            id: c.payload.doc.id, ...(c.payload.doc.data() as ShoppingListModel)})
         )
       )
     );
+  }
+
+  // Get specific shopping list
+  getShoppingListById(id: string): Observable<ShoppingListModel> {
+    return this.firestore.collection('shopping-lists').doc(id).snapshotChanges().pipe(
+      map(changes => {
+        return { id: changes.payload.id, ...changes.payload.data() as ShoppingListModel }
+      })
+    )
+  }
+
+  // Update shopping list
+  updateShoppingList(shoppingList: ShoppingListModel): Promise<void> {
+    return this.firestore.collection('shopping-lists').doc(shoppingList.id).update(shoppingList);
   }
 }
