@@ -35,6 +35,6 @@ export class ShoppingListService {
 
   // Update shopping list
   updateShoppingList(shoppingList: ShoppingListModel): Promise<void> {
-    return this.firestore.collection('shopping-lists').doc(shoppingList.id).update(shoppingList);
+    return this.firestore.collection('shopping-lists').doc(shoppingList.id).set(shoppingList, { merge: true });
   }
 }

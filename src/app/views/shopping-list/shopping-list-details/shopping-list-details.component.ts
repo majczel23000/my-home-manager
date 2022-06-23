@@ -34,31 +34,50 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.shoppingListService.getShoppingListById(id).subscribe(
         shoppingList => {
-          console.log(shoppingList);
           this.shoppingList = shoppingList;
+          console.log(this.shoppingList);
           this.cdr.detectChanges();
         }
       )
     );
   }
 
-  updateShoppingList(): void {
-    this.shoppingListService.updateShoppingList({
-      id: this.shoppingList.id,
-      name: 'new name',
-    });
-  }
-
   addNewProduct(): void {
-    const copiedShoppingList = Object.create(this.shoppingList);
-    copiedShoppingList.elements.push(this.addedProduct);
+    if (this.isAddButtonDisabled()) {
+      return;
+    }
+    const copiedShoppingList = Object.assign({}, this.shoppingList);
+    copiedShoppingList.elements!.push(this.addedProduct);
     this.shoppingListService.updateShoppingList({
       id: this.shoppingList.id,
       elements: copiedShoppingList.elements
     }).then(() => {
       this.addedProduct = { item: '', quantity: '', isAdded: false }
-      this.cdr.detectChanges();
     });
+  }
+
+  removeItem(event: any, i: number): void {
+    console.log('remove');
+    event.preventDefault();
+    event.stopPropagation();
+    const copiedShoppingList = Object.assign({}, this.shoppingList);
+    copiedShoppingList.elements!.splice(i, 1);
+    this.shoppingListService.updateShoppingList({
+      id: this.shoppingList.id,
+      elements: copiedShoppingList.elements
+    });
+  }
+
+  selectItem(i: number): void {
+    this.shoppingList.elements![i].isAdded = !this.shoppingList.elements![i].isAdded;
+    this.shoppingListService.updateShoppingList({
+      id: this.shoppingList.id,
+      elements: this.shoppingList.elements
+    });
+  }
+
+  isAddButtonDisabled(): boolean {
+    return !this.addedProduct.item.length || !this.addedProduct.quantity.length;
   }
 
   ngOnDestroy() {

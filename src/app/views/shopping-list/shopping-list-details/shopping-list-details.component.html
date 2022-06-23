@@ -1,13 +1,11 @@
-<button mat-raised-button color="primary" (click)="updateShoppingList()">Update</button>
-<button mat-raised-button color="warn" (click)="updateShoppingList()">Delete</button>
-
 <mat-selection-list>
   <mat-list-option
-    *ngFor="let element of shoppingList.elements"
-    [(selected)]="element.isAdded"
-    [style.background-color]="element.isAdded ? '#ffa7a1' : ''">
-    <span class="details-item" [style.text-decoration]="element.isAdded ? 'line-through' : ''">{{element.item}}</span>
-    <span class="details-item">{{element.quantity}}</span>
+    *ngFor="let element of shoppingList.elements; let i = index"
+    [style.background-color]="element.isAdded ? '#ffa7a1' : ''"
+    (click)="selectItem(i)"
+    [selected]="element.isAdded">
+    <span class="details-item" [style.text-decoration]="element.isAdded ? 'line-through' : ''">{{element.item}} | {{element.quantity}}</span>
+    <button mat-raised-button color="warn" (click)="removeItem($event, i)">X</button>
   </mat-list-option>
 </mat-selection-list>
 
@@ -22,5 +20,7 @@
     <input matInput placeholder="Quantity" [(ngModel)]="addedProduct.quantity" name="quantity">
   </mat-form-field>
 
-  <button mat-raised-button (click)="addNewProduct()">Add</button>
+  <button mat-raised-button color="primary"
+          (click)="addNewProduct()"
+          [disabled]="isAddButtonDisabled()">+</button>
 </form>
