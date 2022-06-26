@@ -35,7 +35,6 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
       this.shoppingListService.getShoppingListById(id).subscribe(
         shoppingList => {
           this.shoppingList = shoppingList;
-          console.log(this.shoppingList);
           this.cdr.detectChanges();
         }
       )
@@ -57,7 +56,6 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
   }
 
   removeItem(event: any, i: number): void {
-    console.log('remove');
     event.preventDefault();
     event.stopPropagation();
     const copiedShoppingList = Object.assign({}, this.shoppingList);
