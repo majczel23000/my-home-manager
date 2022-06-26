@@ -23,8 +23,9 @@ export class ShoppingListItemComponent implements OnInit {
     this.router.navigateByUrl(`/lists/${this.shoppingList.id}`);
   }
 
-  delete(): void {
-
+  delete(event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
 }
