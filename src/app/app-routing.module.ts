@@ -4,6 +4,7 @@ import {
   ShoppingListDetailsComponent
 } from './views/shopping-list/shopping-list-details/shopping-list-details.component';
 import { ShoppingListComponent } from './views/shopping-list/shopping-list.component';
+import { ShoppingListAddComponent } from './views/shopping-list/shopping-list-add/shopping-list-add.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'lists',
     component: ShoppingListComponent,
+  },
+  {
+    path: 'lists/add',
+    component: ShoppingListAddComponent,
   },
   {
     path: 'lists/:id',

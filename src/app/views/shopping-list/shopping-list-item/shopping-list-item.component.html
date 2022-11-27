@@ -2,6 +2,9 @@
   <mat-card-title>{{shoppingList?.name}}</mat-card-title>
   <mat-card-subtitle>{{shoppingList?.description}}</mat-card-subtitle>
   <mat-card-actions>
-    <button mat-raised-button color="warn" (click)="delete($event)">X</button>
+    <button mat-icon-button color="warn"
+            (click)="delete($event)">
+      <mat-icon class="material-icons">delete</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

@@ -26,9 +26,11 @@
       <input matInput placeholder="Quantity" [(ngModel)]="addedProduct.quantity" name="quantity">
     </mat-form-field>
 
-    <button mat-raised-button color="primary"
+    <button mat-icon-button color="primary"
             (click)="addNewProduct()"
-            [disabled]="isAddButtonDisabled()">+</button>
+            [disabled]="isAddButtonDisabled()">
+      <mat-icon class="material-icons">add_circle</mat-icon>
+    </button>
   </form>
 </ng-container>
 

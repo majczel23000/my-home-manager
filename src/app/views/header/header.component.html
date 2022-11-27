@@ -1,5 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-raised-button routerLink="/">Shopping lists</button>
+    <button mat-raised-button [matMenuTriggerFor]="menu">Shopping</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/lists">Lists</button>
+      <button mat-menu-item routerLink="/lists/add">Add list</button>
+    </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>

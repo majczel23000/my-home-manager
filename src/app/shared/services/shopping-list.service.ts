@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {AngularFirestore, DocumentReference} from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { ShoppingListModel } from '../models/shopping-list.model';
 
@@ -36,5 +36,15 @@ export class ShoppingListService {
   // Update shopping list
   updateShoppingList(shoppingList: ShoppingListModel): Promise<void> {
     return this.firestore.collection('shopping-lists').doc(shoppingList.id).set(shoppingList, { merge: true });
+  }
+
+  // Create new shopping list
+  createShoppingList(shoppingList: ShoppingListModel): Promise<DocumentReference<unknown>> {
+    return this.firestore.collection('shopping-lists').add(shoppingList);
+  }
+
+  // Delete shopping list
+  deleteShoppingList(id: string): Promise<void> {
+    return this.firestore.collection('shopping-lists').doc(id).delete();
   }
 }

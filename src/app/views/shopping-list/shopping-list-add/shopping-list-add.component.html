@@ -1,1 +1,18 @@
 
+<form class="add-shopping-list">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Product name" [(ngModel)]="addedShoppingList.name" name="item">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input matInput placeholder="Quantity" [(ngModel)]="addedShoppingList.description" name="description">
+  </mat-form-field>
+
+  <button mat-icon-button color="primary"
+          (click)="addNewShoppingList()"
+          [disabled]="isAddButtonDisabled()">
+    <mat-icon class="material-icons">add_circle</mat-icon>
+  </button>
+</form>
