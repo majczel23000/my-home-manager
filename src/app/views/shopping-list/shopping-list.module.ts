@@ -12,8 +12,9 @@ import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from "@angular/material/icon";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CurrentLocationModule } from '../current-location/current-location.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     BrowserAnimationsModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    CurrentLocationModule,
   ],
 })
 export class ShoppingListModule { }

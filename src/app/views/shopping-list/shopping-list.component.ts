@@ -12,6 +12,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   shoppingLists: ShoppingListModel[] = [] as ShoppingListModel[];
   private subscriptions: Subscription[] = [] as Subscription[];
+  public isLoading = true;
 
   constructor(
     private shoppingListService: ShoppingListService,
@@ -21,6 +22,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.shoppingListService.getShoppingLists().subscribe(res => {
         this.shoppingLists = res;
+        this.isLoading = false;
       })
     )
   }

@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './views/header/header.module';
 import { FooterModule } from './views/footer/footer.module';
-import { SpinnerModule } from './views/spinner/spinner.module';
 import { ShoppingListModule } from './views/shopping-list/shopping-list.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
@@ -24,7 +23,6 @@ import { MatButtonModule } from '@angular/material/button';
     AppRoutingModule,
     HeaderModule,
     FooterModule,
-    SpinnerModule,
     ShoppingListModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
