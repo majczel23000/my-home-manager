@@ -1,26 +1,35 @@
-<mat-selection-list>
-  <mat-list-option
-    *ngFor="let element of shoppingList.elements; let i = index"
-    [style.background-color]="element.isAdded ? '#ffa7a1' : ''"
-    (click)="selectItem(i)"
-    [selected]="element.isAdded">
-    <span class="details-item" [style.text-decoration]="element.isAdded ? 'line-through' : ''">{{element.item}} | {{element.quantity}}</span>
-    <button mat-raised-button color="warn" (click)="removeItem($event, i)">X</button>
-  </mat-list-option>
-</mat-selection-list>
+<ng-container *ngIf="!isLoading">
+  <mat-selection-list>
+    <mat-list-option
+      *ngFor="let element of shoppingList.elements; let i = index"
+      [style.background-color]="element.isAdded ? '#ffa7a1' : ''"
+      (click)="selectItem(i)"
+      [selected]="element.isAdded">
+      <span class="details-quantity">{{element.quantity}}</span>
+      <span class="details-item" [style.text-decoration]="element.isAdded ? 'line-through' : ''">
+        <div>{{element.item}}</div>
+        <button mat-icon-button color="warn" (click)="removeItem($event, i)">
+          <mat-icon class="material-icons">delete_forever</mat-icon>
+        </button>
+      </span>
+    </mat-list-option>
+  </mat-selection-list>
 
-<form class="add-shopping-list">
-  <mat-form-field>
-    <mat-label>Product</mat-label>
-    <input matInput placeholder="Product name" [(ngModel)]="addedProduct.item" name="item">
-  </mat-form-field>
+  <form class="add-shopping-list">
+    <mat-form-field>
+      <mat-label>Product</mat-label>
+      <input matInput placeholder="Product name" [(ngModel)]="addedProduct.item" name="item">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Quantity</mat-label>
-    <input matInput placeholder="Quantity" [(ngModel)]="addedProduct.quantity" name="quantity">
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Quantity</mat-label>
+      <input matInput placeholder="Quantity" [(ngModel)]="addedProduct.quantity" name="quantity">
+    </mat-form-field>
 
-  <button mat-raised-button color="primary"
-          (click)="addNewProduct()"
-          [disabled]="isAddButtonDisabled()">+</button>
-</form>
+    <button mat-raised-button color="primary"
+            (click)="addNewProduct()"
+            [disabled]="isAddButtonDisabled()">+</button>
+  </form>
+</ng-container>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>

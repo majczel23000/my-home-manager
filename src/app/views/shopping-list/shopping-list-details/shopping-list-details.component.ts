@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
 
+  public isLoading = true;
   public shoppingList: ShoppingListModel = {} as ShoppingListModel;
   private subscriptions: Subscription[] = [] as Subscription[];
   public addedProduct: { item: string; quantity: string; isAdded: boolean } = {
@@ -30,11 +31,12 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
     this.getShoppingListDetails(this.activatedRoute.snapshot.paramMap.get('id')!);
   }
 
-  getShoppingListDetails(id: string): void {
+  private getShoppingListDetails(id: string): void {
     this.subscriptions.push(
       this.shoppingListService.getShoppingListById(id).subscribe(
         shoppingList => {
           this.shoppingList = shoppingList;
+          this.isLoading = false;
           this.cdr.detectChanges();
         }
       )
