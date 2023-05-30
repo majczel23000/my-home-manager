@@ -6,5 +6,7 @@ export class ShoppingListModel {
     isAdded?: boolean;
     item?: string;
     quantity?: string;
+    category?: string;
+    id?: number;
   }[];
 }

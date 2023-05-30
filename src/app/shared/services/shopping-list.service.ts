@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore, DocumentReference} from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { ShoppingListModel } from '../models/shopping-list.model';
+import { CategoryModel } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,7 @@ export class ShoppingListService {
   getShoppingLists(): Observable<ShoppingListModel[]> {
     return this.firestore.collection('shopping-lists').snapshotChanges().pipe(
       map(changes =>
-        changes.map(c =>
-          ({
-            id: c.payload.doc.id, ...(c.payload.doc.data() as ShoppingListModel)})
-        )
+        changes.map(c => ({ id: c.payload.doc.id, ...(c.payload.doc.data() as ShoppingListModel) }))
       )
     );
   }
@@ -46,5 +44,17 @@ export class ShoppingListService {
   // Delete shopping list
   deleteShoppingList(id: string): Promise<void> {
     return this.firestore.collection('shopping-lists').doc(id).delete();
+  }
+
+  // Get all shopping lists
+  getCategories(): Observable<CategoryModel[]> {
+    return this.firestore.collection('categories').snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({
+            id: c.payload.doc.id, ...(c.payload.doc.data() as CategoryModel)})
+        )
+      )
+    );
   }
 }

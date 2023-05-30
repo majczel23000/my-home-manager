@@ -3,6 +3,8 @@ import { ShoppingListService } from '../../../shared/services/shopping-list.serv
 import { ActivatedRoute } from '@angular/router';
 import { ShoppingListModel } from '../../../shared/models/shopping-list.model';
 import { Subscription } from 'rxjs';
+import { CategoryModel } from 'src/app/shared/models/category.model';
+import { CategoryProductModel } from 'src/app/shared/models/category-products.model';
 
 @Component({
   selector: 'app-shopping-list-details',
@@ -15,11 +17,14 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
   public isLoading = true;
   public shoppingList: ShoppingListModel = {} as ShoppingListModel;
   private subscriptions: Subscription[] = [] as Subscription[];
-  public addedProduct: { item: string; quantity: string; isAdded: boolean } = {
+  public addedProduct: { item: string; quantity: string; category: string; isAdded: boolean } = {
     item: '',
     quantity: '',
+    category: '',
     isAdded: false
   }
+  public categories: CategoryModel[] = [];
+  public elementsAndCategories: CategoryProductModel[] = [] as CategoryProductModel[];
 
   constructor(
     private shoppingListService: ShoppingListService,
@@ -36,11 +41,38 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
       this.shoppingListService.getShoppingListById(id).subscribe(
         shoppingList => {
           this.shoppingList = shoppingList;
-          this.isLoading = false;
-          this.cdr.detectChanges();
+          this.getCategories();
         }
       )
     );
+  }
+
+  private getCategories(): void {
+    this.subscriptions.push(
+      this.shoppingListService.getCategories().subscribe(
+        (categories: CategoryModel[]) => {
+          this.categories = categories;
+          this.createCategoriesWithProducts();
+        }
+      )
+    );
+  }
+
+  private createCategoriesWithProducts(): void {
+    this.elementsAndCategories = [];
+    this.categories.forEach(category => this.elementsAndCategories.push({
+      category: category.name,
+      elements: [],
+    }));
+    let id = 0;
+    this.shoppingList.elements?.forEach(element => {
+      element.id = id++;
+      this.elementsAndCategories.find(category => category.category === element.category)?.elements.push(element);
+    });
+    this.elementsAndCategories = this.elementsAndCategories.filter(element => element.elements?.length);
+    console.log(this.elementsAndCategories);
+    this.isLoading = false;
+    this.cdr.detectChanges();
   }
 
   addNewProduct(): void {
@@ -53,7 +85,7 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
       id: this.shoppingList.id,
       elements: copiedShoppingList.elements
     }).then(() => {
-      this.addedProduct = { item: '', quantity: '', isAdded: false }
+      this.addedProduct = { item: '', quantity: '', category: '', isAdded: false }
     });
   }
 
@@ -77,7 +109,7 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
   }
 
   isAddButtonDisabled(): boolean {
-    return !this.addedProduct.item.length || !this.addedProduct.quantity.length;
+    return !this.addedProduct.item.length || !this.addedProduct.quantity.length || !this.addedProduct.category.length;
   }
 
   ngOnDestroy() {

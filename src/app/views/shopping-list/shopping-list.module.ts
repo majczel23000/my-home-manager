@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CurrentLocationModule } from '../current-location/current-location.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CurrentLocationModule } from '../current-location/current-location.modu
     MatIconModule,
     MatProgressSpinnerModule,
     CurrentLocationModule,
+    MatSelectModule,
   ],
 })
 export class ShoppingListModule { }
