@@ -1,29 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {
-  ShoppingListDetailsComponent
-} from './views/shopping-list/shopping-list-details/shopping-list-details.component';
-import { ShoppingListComponent } from './views/shopping-list/shopping-list.component';
-import { ShoppingListAddComponent } from './views/shopping-list/shopping-list-add/shopping-list-add.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'lists',
+    redirectTo: 'shopping',
     pathMatch: 'full',
   },
   {
-    path: 'lists',
-    component: ShoppingListComponent,
+    path: 'shopping',
+    loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule),
   },
-  {
-    path: 'lists/add',
-    component: ShoppingListAddComponent,
-  },
-  {
-    path: 'lists/:id',
-    component: ShoppingListDetailsComponent,
-  },
+  // {
+  //   path: 'shopping/add',
+  //   component: ShoppingListAddComponent,
+  // },
+  // {
+  //   path: 'shopping/:id',
+  //   component: ShoppingListDetailsComponent,
+  // },
   {
     path: '**',
     redirectTo: '',

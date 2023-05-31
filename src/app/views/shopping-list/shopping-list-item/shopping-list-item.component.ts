@@ -24,7 +24,7 @@ export class ShoppingListItemComponent {
 
   public goToDetails(): void {
     if (!this.shoppingList.id) return;
-    this.router.navigateByUrl(`/lists/${this.shoppingList.id}`);
+    this.router.navigateByUrl(`/shopping/${this.shoppingList.id}`);
   }
 
   public delete(event: any): void {

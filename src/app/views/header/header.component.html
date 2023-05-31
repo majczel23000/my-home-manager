@@ -1,9 +1,6 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-raised-button [matMenuTriggerFor]="menu">Shopping</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/lists">Lists</button>
-      <button mat-menu-item routerLink="/lists/add">Add list</button>
-    </mat-menu>
-  </mat-toolbar-row>
+  <button mat-icon-button (click)="sideNav?.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Home Management App</h1>
 </mat-toolbar>
