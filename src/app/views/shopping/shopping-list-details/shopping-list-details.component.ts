@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ShoppingListService } from '../../../shared/services/shopping-list.service';
-import { ActivatedRoute } from '@angular/router';
-import { ShoppingListModel } from '../../../shared/models/shopping-list.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CategoryModel } from 'src/app/shared/models/category.model';
 import { CategoryProductModel } from 'src/app/shared/models/category-products.model';
+import { CategoryModel } from 'src/app/shared/models/category.model';
+import { ProductModel, ShoppingListModel } from 'src/app/shared/models/shopping-list.model';
+import { ShoppingListService } from 'src/app/shared/services/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list-details',
@@ -14,29 +14,39 @@ import { CategoryProductModel } from 'src/app/shared/models/category-products.mo
 })
 export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
 
+  protected subscriptions: Subscription[] = [];
   public isLoading = true;
-  public shoppingList: ShoppingListModel = {} as ShoppingListModel;
-  private subscriptions: Subscription[] = [] as Subscription[];
-  public addedProduct: { item: string; quantity: string; category: string; isAdded: boolean } = {
+  public shoppingList: ShoppingListModel = {};
+  public addedProduct: ProductModel = {
     item: '',
     quantity: '',
     category: '',
     isAdded: false
   }
   public categories: CategoryModel[] = [];
-  public elementsAndCategories: CategoryProductModel[] = [] as CategoryProductModel[];
+  public elementsAndCategories: CategoryProductModel[] = [];
 
   constructor(
-    private shoppingListService: ShoppingListService,
-    private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
+    protected shoppingListService: ShoppingListService,
+    protected activatedRoute: ActivatedRoute,
+    protected cdr: ChangeDetectorRef,
+    protected router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.getShoppingListDetails(this.activatedRoute.snapshot.paramMap.get('id')!);
+    this.getIdFromParameter();
   }
 
-  private getShoppingListDetails(id: string): void {
+  protected getIdFromParameter(): void {
+    const shoppingListId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (!shoppingListId) {
+      this.router.navigateByUrl('/shopping');
+      return;
+    }
+    this.getShoppingListDetails(shoppingListId);
+  }
+
+  protected getShoppingListDetails(id: string): void {
     this.subscriptions.push(
       this.shoppingListService.getShoppingListById(id).subscribe(
         shoppingList => {
@@ -47,10 +57,10 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  private getCategories(): void {
+  protected getCategories(): void {
     this.subscriptions.push(
       this.shoppingListService.getCategories().subscribe(
-        (categories: CategoryModel[]) => {
+        categories => {
           this.categories = categories;
           this.createCategoriesWithProducts();
         }
@@ -58,57 +68,56 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  private createCategoriesWithProducts(): void {
+  protected createCategoriesWithProducts(): void {
     this.elementsAndCategories = [];
     this.categories.forEach(category => this.elementsAndCategories.push({
       category: category.name,
       elements: [],
     }));
     let id = 0;
-    this.shoppingList.elements?.forEach(element => {
-      element.id = id++;
-      this.elementsAndCategories.find(category => category.category === element.category)?.elements.push(element);
+    this.shoppingList.products?.forEach(product => {
+      product.id = id++;
+      this.elementsAndCategories.find(category => category.category === product.category)?.elements.push(product);
     });
     this.elementsAndCategories = this.elementsAndCategories.filter(element => element.elements?.length);
-    console.log(this.elementsAndCategories);
     this.isLoading = false;
     this.cdr.detectChanges();
   }
 
-  addNewProduct(): void {
+  public addNewProduct(): void {
     if (this.isAddButtonDisabled()) {
       return;
     }
-    const copiedShoppingList = Object.assign({}, this.shoppingList);
-    copiedShoppingList.elements!.push(this.addedProduct);
+    const shoppingListToUpdate = Object.assign({}, this.shoppingList);
+    shoppingListToUpdate.products!.push(this.addedProduct);
     this.shoppingListService.updateShoppingList({
       id: this.shoppingList.id,
-      elements: copiedShoppingList.elements
+      products: shoppingListToUpdate.products
     }).then(() => {
       this.addedProduct = { item: '', quantity: '', category: '', isAdded: false }
     });
   }
 
-  removeItem(event: any, i: number): void {
+  public removeItem(event: any, i: number): void {
     event.preventDefault();
     event.stopPropagation();
-    const copiedShoppingList = Object.assign({}, this.shoppingList);
-    copiedShoppingList.elements!.splice(i, 1);
+    const shoppingListToUpdate = Object.assign({}, this.shoppingList);
+    shoppingListToUpdate.products!.splice(i, 1);
     this.shoppingListService.updateShoppingList({
       id: this.shoppingList.id,
-      elements: copiedShoppingList.elements
+      products: shoppingListToUpdate.products
     });
   }
 
-  selectItem(i: number): void {
-    this.shoppingList.elements![i].isAdded = !this.shoppingList.elements![i].isAdded;
+  public selectItem(i: number): void {
+    this.shoppingList.products![i].isAdded = !this.shoppingList.products![i].isAdded;
     this.shoppingListService.updateShoppingList({
       id: this.shoppingList.id,
-      elements: this.shoppingList.elements
+      products: this.shoppingList.products
     });
   }
 
-  isAddButtonDisabled(): boolean {
+  public isAddButtonDisabled(): boolean {
     return !this.addedProduct.item.length || !this.addedProduct.quantity.length || !this.addedProduct.category.length;
   }
 

@@ -1,0 +1,11 @@
+<div [style.visibility]="isLoading ? 'hidden' : 'visible'">
+    
+    <app-current-location [location]="'Shopping lists'"></app-current-location>
+
+    <app-shopping-lists (isLoading)="isLoading = $event"></app-shopping-lists>
+
+    <app-shopping-list-add></app-shopping-list-add>
+
+</div>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>

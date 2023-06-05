@@ -1,3 +1,3 @@
-export class CategoryModel {
-  name?: string;
+export interface CategoryModel {
+  name: string;
 }

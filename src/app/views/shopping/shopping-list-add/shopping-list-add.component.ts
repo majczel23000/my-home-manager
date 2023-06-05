@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ShoppingListService } from '../../../shared/services/shopping-list.service';
 import { ShoppingListModel } from '../../../shared/models/shopping-list.model';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-shopping-list-add',
@@ -10,28 +9,25 @@ import {Router} from "@angular/router";
 })
 export class ShoppingListAddComponent {
 
-  public addedShoppingList: ShoppingListModel = {
+  public shoppingListToAdd: ShoppingListModel = {
     description: '',
     name: ''
   };
 
   constructor(
-    private shoppingListService: ShoppingListService,
-    private router: Router,
+    protected shoppingListService: ShoppingListService,
   ) { }
 
   public addNewShoppingList(): void {
     this.shoppingListService.createShoppingList({
-      description: this.addedShoppingList.description,
-      name: this.addedShoppingList.name,
+      description: this.shoppingListToAdd.description,
+      name: this.shoppingListToAdd.name,
       products: []
-    }).then(() => {
-      this.router.navigateByUrl('/lists');
     });
   }
 
   public isAddButtonDisabled(): boolean {
-    return !this.addedShoppingList.description!.length || !this.addedShoppingList.name!.length;
+    return !this.shoppingListToAdd.description!.length || !this.shoppingListToAdd.name!.length;
   }
 
 }

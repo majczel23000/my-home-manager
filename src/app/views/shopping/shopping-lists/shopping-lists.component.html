@@ -1,0 +1,14 @@
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let shoppingList of shoppingLists">
+        <mat-card (click)="goToShoppingListDetails(shoppingList)">
+            <mat-card-header>
+                <mat-card-title>
+                    {{ shoppingList.name }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    {{ shoppingList.description }}
+                </mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

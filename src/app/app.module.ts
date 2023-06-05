@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderModule } from './views/header/header.module';
-import { FooterModule } from './views/footer/footer.module';
 import { ShoppingListModule } from './views/shopping-list/shopping-list.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
@@ -12,6 +11,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { ConfirmDialogComponent } from './shared/components/confirm-dialog.component.ts/confirm-dialog.component.ts.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NavigationModule } from './views/navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserModule,
     AppRoutingModule,
     HeaderModule,
-    FooterModule,
+    NavigationModule,
     ShoppingListModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -34,6 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     }),
     MatDialogModule,
     MatButtonModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
