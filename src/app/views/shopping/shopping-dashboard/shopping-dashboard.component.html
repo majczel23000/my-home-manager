@@ -3,13 +3,8 @@
     <app-current-location [location]="'Shopping lists'"></app-current-location>
 
     <app-shopping-lists (isLoading)="isLoading = $event"></app-shopping-lists>
-    
-    <button 
-        mat-raised-button 
-        color="primary"
-        routerLink="/shopping/add">
-        Add new shopping list
-    </button>
+
+    <app-shopping-list-add></app-shopping-list-add>
 
 </div>
 

@@ -11,14 +11,6 @@ const routes: Routes = [
     path: 'shopping',
     loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule),
   },
-  // {
-  //   path: 'shopping/add',
-  //   component: ShoppingListAddComponent,
-  // },
-  // {
-  //   path: 'shopping/:id',
-  //   component: ShoppingListDetailsComponent,
-  // },
   {
     path: '**',
     redirectTo: '',

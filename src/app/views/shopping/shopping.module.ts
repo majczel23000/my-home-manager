@@ -8,11 +8,23 @@ import { ShoppingListsComponent } from './shopping-lists/shopping-lists.componen
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { ShoppingListDetailsComponent } from './shopping-list-details/shopping-list-details.component';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ShoppingListAddComponent } from './shopping-list-add/shopping-list-add.component';
 
 @NgModule({
   declarations: [
     ShoppingDashboardComponent,
     ShoppingListsComponent,
+    ShoppingListDetailsComponent,
+    ShoppingListAddComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +34,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
+    MatListModule,
+    MatIconModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatOptionModule,
+    MatInputModule,
+    MatSelectModule,
   ]
 })
 export class ShoppingModule { }

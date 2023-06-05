@@ -10,7 +10,7 @@ import { CategoryModel } from '../models/category.model';
 export class ShoppingListService {
 
   constructor(
-    private firestore: AngularFirestore,
+    protected firestore: AngularFirestore,
   ) { }
 
   // Get all shopping lists
@@ -46,14 +46,14 @@ export class ShoppingListService {
     return this.firestore.collection('shopping-lists').doc(id).delete();
   }
 
-  // Get all shopping lists
+  // Get all categories (sorted)
   getCategories(): Observable<CategoryModel[]> {
     return this.firestore.collection('categories').snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({
             id: c.payload.doc.id, ...(c.payload.doc.data() as CategoryModel)})
-        )
+        ).sort((a, b) => a.name.localeCompare(b.name))
       )
     );
   }
