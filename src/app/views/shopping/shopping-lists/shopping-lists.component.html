@@ -1,14 +1,18 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let shoppingList of shoppingLists">
-        <mat-card (click)="goToShoppingListDetails(shoppingList)">
-            <mat-card-header>
-                <mat-card-title>
-                    {{ shoppingList.name }}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    {{ shoppingList.description }}
-                </mat-card-subtitle>
-            </mat-card-header>
-          </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+<mat-list class="shopping-lists">
+    <ng-container *ngFor="let shoppingList of shoppingLists">
+        <mat-list-item  (click)="goToShoppingListDetails(shoppingList)">
+            <mat-icon>shopping_cart</mat-icon>
+            <div class="list-title">
+                {{ shoppingList.name }}
+            </div>
+            <div>
+                |
+            </div>
+            <div class="list-description">
+                {{ shoppingList.description }}
+            </div>
+            <mat-icon class="list-delete" color="warn" (click)="deleteShoppingList(shoppingList, $event)">close</mat-icon>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>

@@ -14,10 +14,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ShoppingListAddComponent } from './shopping-list-add/shopping-list-add.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { ShoppingListAddComponent } from './shopping-list-add/shopping-list-add.
     MatOptionModule,
     MatInputModule,
     MatSelectModule,
+    MatDividerModule,
   ]
 })
 export class ShoppingModule { }

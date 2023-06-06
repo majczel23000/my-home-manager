@@ -1,3 +1,31 @@
-mat-card {
-    background: antiquewhite;
+.shopping-lists {
+    mat-list-item {
+        background: lightgray;
+    }
+    
+    .list-title, .list-description {
+        margin: 0 10px;
+    }
+    
+    .list-title {
+        font-size: 1.1em;
+    }
+    
+    .list-description {
+        font-size: 1em;
+    }
+    
+    .mat-list-item-content {
+        float: left;
+        width: 100%;
+    }
+
+    .list-delete {
+        margin-left: auto;
+    }
+
+    mat-divider {
+        border-top-width: 5px;
+        border-top-color: #fafafa;
+    }
 }
