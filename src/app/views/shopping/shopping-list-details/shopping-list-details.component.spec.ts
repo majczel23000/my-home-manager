@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShoppingListDetailsComponent } from './shopping-list-details.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ShoppingListDetailsComponent', () => {
   let component: ShoppingListDetailsComponent;
@@ -8,7 +12,12 @@ describe('ShoppingListDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShoppingListDetailsComponent ]
+      declarations: [ ShoppingListDetailsComponent ],
+      imports: [
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        RouterTestingModule,
+      ]
     })
     .compileComponents();
 
@@ -17,7 +26,7 @@ describe('ShoppingListDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ShoppingListDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });

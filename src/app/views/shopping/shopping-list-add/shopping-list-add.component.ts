@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ShoppingListService } from '../../../shared/services/shopping-list.service';
-import { ShoppingListModel } from '../../../shared/models/shopping-list.model';
+import { ShoppingListService } from '../../../shared/services/shopping/shopping-list.service';
+import { ShoppingListModel } from '../../../shared/models/shopping/shopping-list.model';
 
 @Component({
   selector: 'app-shopping-list-add',

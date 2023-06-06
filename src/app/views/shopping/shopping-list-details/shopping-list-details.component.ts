@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CategoryProductModel } from 'src/app/shared/models/category-products.model';
-import { CategoryModel } from 'src/app/shared/models/category.model';
-import { ProductModel, ShoppingListModel } from 'src/app/shared/models/shopping-list.model';
-import { ShoppingListService } from 'src/app/shared/services/shopping-list.service';
+import { CategoryProductModel } from 'src/app/shared/models/shopping/category-products.model';
+import { CategoryModel } from 'src/app/shared/models/shopping/category.model';
+import { ProductModel, ShoppingListModel } from 'src/app/shared/models/shopping/shopping-list.model';
+import { ShoppingListService } from 'src/app/shared/services/shopping/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list-details',

@@ -17,7 +17,7 @@ describe('ShoppingDashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ShoppingDashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 });

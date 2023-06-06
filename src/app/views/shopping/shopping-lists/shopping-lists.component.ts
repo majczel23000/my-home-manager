@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog.component.ts/confirm-dialog.component.ts.component';
-import { ShoppingListModel } from 'src/app/shared/models/shopping-list.model';
-import { ShoppingListService } from 'src/app/shared/services/shopping-list.service';
+import { ShoppingListModel } from 'src/app/shared/models/shopping/shopping-list.model';
+import { ShoppingListService } from 'src/app/shared/services/shopping/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-lists',
