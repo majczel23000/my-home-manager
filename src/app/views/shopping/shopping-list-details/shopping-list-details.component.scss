@@ -1,4 +1,13 @@
 .shopping-list-details {
+    // override material styles
+    .mdc-list {
+        padding: 0;
+    }
+
+    .mdc-list-item__end {
+        display: none;
+    }
+
     .mat-list-text {
         display: flex !important;
         flex-wrap: wrap !important;
