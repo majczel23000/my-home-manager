@@ -9,7 +9,16 @@ const routes: Routes = [
   },
   {
     path: 'shopping',
-    loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./views/shopping/shopping-dashboard/shopping-dashboard.component').then(mod => mod.ShoppingDashboardComponent),
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./views/shopping/shopping-list-details/shopping-list-details.component').then(mod => mod.ShoppingListDetailsComponent),
+      }
+    ]
   },
   {
     path: '**',

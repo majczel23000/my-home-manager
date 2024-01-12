@@ -8,4 +8,7 @@
 
 </div>
 
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+@if (isLoading) {
+    <mat-spinner></mat-spinner>
+}
+

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {AngularFirestore, DocumentReference} from '@angular/fire/compat/firestore';
+import { Injectable, inject } from '@angular/core';
+import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firestore';
 import { map, Observable } from 'rxjs';
 import { ShoppingListModel } from '../../models/shopping/shopping-list.model';
 import { CategoryModel } from '../../models/shopping/category.model';
@@ -9,9 +9,7 @@ import { CategoryModel } from '../../models/shopping/category.model';
 })
 export class ShoppingListService {
 
-  constructor(
-    protected firestore: AngularFirestore,
-  ) { }
+  protected firestore = inject(AngularFirestore);
 
   // Get all shopping lists
   getShoppingLists(): Observable<ShoppingListModel[]> {

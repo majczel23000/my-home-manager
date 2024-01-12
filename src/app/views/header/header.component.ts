@@ -10,6 +10,4 @@ export class HeaderComponent {
 
   @Input() sideNav: MatSidenav | undefined;
 
-  constructor() { }
-
 }

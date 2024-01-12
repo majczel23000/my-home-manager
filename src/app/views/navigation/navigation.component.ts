@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
@@ -9,11 +9,9 @@ import { Router } from '@angular/router';
 })
 export class NavigationComponent {
 
-  @Input() sideNav: MatSidenav | undefined;
+  protected router = inject(Router);
 
-  constructor(
-    protected router: Router,
-  ) { }
+  @Input() sideNav: MatSidenav | undefined;
 
   public navigateTo(route: string) {
     this.router.navigateByUrl(route);

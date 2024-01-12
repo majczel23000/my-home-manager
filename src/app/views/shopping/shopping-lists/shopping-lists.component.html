@@ -1,5 +1,5 @@
 <mat-list class="shopping-lists">
-    <ng-container *ngFor="let shoppingList of shoppingLists">
+    @for(shoppingList of shoppingLists; track shoppingList) {
         <mat-list-item  (click)="goToShoppingListDetails(shoppingList)">
             <mat-icon>shopping_cart</mat-icon>
             <div class="list-title">
@@ -14,5 +14,5 @@
             <mat-icon class="list-delete" color="warn" (click)="deleteShoppingList(shoppingList, $event)">close</mat-icon>
         </mat-list-item>
         <mat-divider></mat-divider>
-  </ng-container>
+    }
 </mat-list>

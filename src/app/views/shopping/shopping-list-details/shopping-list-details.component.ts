@@ -1,18 +1,46 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CategoryProductModel } from 'src/app/shared/models/shopping/category-products.model';
 import { CategoryModel } from 'src/app/shared/models/shopping/category.model';
 import { ProductModel, ShoppingListModel } from 'src/app/shared/models/shopping/shopping-list.model';
 import { ShoppingListService } from 'src/app/shared/services/shopping/shopping-list.service';
+import { CurrentLocationComponent } from '../../current-location/current-location.component';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
+  standalone: true,
+  imports: [
+    CurrentLocationComponent,
+    MatListModule,
+    MatIconModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatOptionModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+  ],
   selector: 'app-shopping-list-details',
   templateUrl: './shopping-list-details.component.html',
   styleUrls: ['./shopping-list-details.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
+
+  protected shoppingListService = inject(ShoppingListService);
+  protected activatedRoute = inject(ActivatedRoute);
+  protected cdr = inject(ChangeDetectorRef);
+  protected router = inject(Router);
 
   protected subscriptions: Subscription[] = [];
   public isLoading = true;
@@ -25,13 +53,6 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
   }
   public categories: CategoryModel[] = [];
   public elementsAndCategories: CategoryProductModel[] = [];
-
-  constructor(
-    protected shoppingListService: ShoppingListService,
-    protected activatedRoute: ActivatedRoute,
-    protected cdr: ChangeDetectorRef,
-    protected router: Router,
-  ) { }
 
   ngOnInit(): void {
     this.getIdFromParameter();
@@ -81,7 +102,7 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
     });
     this.elementsAndCategories = this.elementsAndCategories.filter(element => element.elements?.length);
     this.isLoading = false;
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
   }
 
   public addNewProduct(): void {

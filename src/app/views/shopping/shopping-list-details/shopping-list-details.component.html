@@ -1,13 +1,13 @@
 <app-current-location [location]="'Shopping lists / List: '" [name]="shoppingList.name"></app-current-location>
 
-<ng-container *ngIf="!isLoading">
+@if(!isLoading) {
   <div class="shopping-list-details">
 
     <mat-list>
       @for (section of elementsAndCategories; track section) {
         <div>
           <div class="details-category-title" mat-subheader>{{ section.category }}</div>
-          @for (element of section.elements; track element) {
+          @for (element of section?.elements; track element) {
             <mat-list-item
             [style.background-color]="element.isAdded ? '#ffa7a1' : ''"
             (click)="selectItem(element.id!)">
@@ -42,9 +42,11 @@
       <mat-form-field>
         <mat-label>Category</mat-label>
         <mat-select [(ngModel)]="addedProduct.category" name="category">
-          <mat-option *ngFor="let category of categories" [value]="category.name">
-            {{ category.name }}
-          </mat-option>
+          @for (category of categories; track category) {
+            <mat-option [value]="category.name">
+              {{ category.name }}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
@@ -57,6 +59,7 @@
       </button>
     </form>
   </div>
-</ng-container>
-
-<mat-spinner *ngIf="isLoading"></mat-spinner>
+}
+@else {
+  <mat-spinner></mat-spinner>
+}
