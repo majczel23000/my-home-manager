@@ -1,9 +1,10 @@
-<mat-list>
+<mat-list class="navigation">
   <mat-list-item>
     <a mat-list-item (click)="navigateTo('/shopping')"><mat-icon>add_shopping_cart</mat-icon>Shopping lists</a>
   </mat-list-item>
-  <!-- <mat-list-item>
-    <a mat-list-item (click)="navigateTo('/product-categories')"><mat-icon>view_list</mat-icon>Product categories</a>
-  </mat-list-item> -->
+  <mat-divider></mat-divider>
+  <mat-list-item>
+    <a mat-list-item (click)="navigateTo('/loans')"><mat-icon>list_alt</mat-icon>Loans</a>
+  </mat-list-item>
   <mat-divider></mat-divider>
 </mat-list>

@@ -1,0 +1,13 @@
+<form class="add-loan" [formGroup]="loanForm">
+    <mat-form-field>
+        <mat-label>Who</mat-label>
+        <input matInput formControlName="who">
+    </mat-form-field>
+
+    <button 
+        mat-raised-button
+        color="primary"
+        (click)="add()">
+        Add new loan
+    </button>
+</form>

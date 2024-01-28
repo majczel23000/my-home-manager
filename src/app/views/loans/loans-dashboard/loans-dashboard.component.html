@@ -1,0 +1,12 @@
+<div class="loans-dashboard" [style.visibility]="isLoading ? 'hidden' : 'visible'">
+    
+    <app-current-location [location]="'Loans list'"></app-current-location>
+
+    <app-loans-list (isLoading)="isLoading = $event"></app-loans-list>
+
+</div>
+
+@if (isLoading) {
+    <mat-spinner></mat-spinner>
+}
+
