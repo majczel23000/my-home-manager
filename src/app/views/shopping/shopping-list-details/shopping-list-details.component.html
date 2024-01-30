@@ -1,4 +1,4 @@
-<app-current-location [location]="'Shopping lists / List: '" [name]="shoppingList.name"></app-current-location>
+<app-current-location [location]="'Listy zakupów / lista: '" [name]="shoppingList.name"></app-current-location>
 
 @if(!isLoading) {
   <div class="shopping-list-details">
@@ -30,17 +30,17 @@
 
     <form class="add-shopping-list">
       <mat-form-field>
-        <mat-label>Product</mat-label>
-        <input matInput placeholder="Product name" [(ngModel)]="addedProduct.item" name="item" autocomplete="off">
+        <mat-label>Produkt</mat-label>
+        <input matInput placeholder="Produkt" [(ngModel)]="addedProduct.item" name="item" autocomplete="off">
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Quantity</mat-label>
-        <input matInput placeholder="Quantity" [(ngModel)]="addedProduct.quantity" name="quantity" autocomplete="off">
+        <mat-label>Ilość</mat-label>
+        <input matInput placeholder="Ilość" [(ngModel)]="addedProduct.quantity" name="quantity" autocomplete="off">
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Category</mat-label>
+        <mat-label>Kategoria</mat-label>
         <mat-select [(ngModel)]="addedProduct.category" name="category">
           @for (category of categories; track category) {
             <mat-option [value]="category.name">
@@ -55,7 +55,7 @@
           color="primary"
           (click)="addNewProduct()"
           [disabled]="isAddButtonDisabled()">
-        Add new product
+        Dodaj nowy produkt
       </button>
     </form>
   </div>

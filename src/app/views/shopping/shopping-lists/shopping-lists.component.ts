@@ -51,7 +51,11 @@ export class ShoppingListsComponent implements OnInit, OnDestroy {
   public deleteShoppingList(shoppingList: ShoppingListModel, event: any): void {
     event.preventDefault();
     event.stopPropagation();
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent);
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Na pewno usunąć listę?'
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.shoppingListService.deleteShoppingList(shoppingList.id!);

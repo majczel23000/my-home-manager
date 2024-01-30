@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
 
 export const ROUTES: Routes = [
     {
         path: '',
-        redirectTo: 'shopping',
-        pathMatch: 'full',
+        component: DashboardComponent,
     },
     {
         path: 'shopping',

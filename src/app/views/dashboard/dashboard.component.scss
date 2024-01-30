@@ -1,0 +1,34 @@
+.home-dashboard {
+
+    padding: 20px;
+    display: flex;
+
+    mat-icon {
+        width: auto;
+        height: auto;
+    }
+
+    div {
+        width: 50%;
+    }
+    
+    mat-card {
+        margin: 10px;
+    }
+
+    mat-card-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .material-icons {
+            font-size: 3em;
+        }
+
+        p {
+            font-size: 1.1em;
+            text-align: center;
+        }
+    }
+}

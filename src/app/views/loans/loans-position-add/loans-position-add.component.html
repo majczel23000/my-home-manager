@@ -1,24 +1,24 @@
 <form class="add-loan-position" [formGroup]="positionForm">
     <mat-form-field>
-        <mat-label>Description</mat-label>
+        <mat-label>Opis</mat-label>
         <input matInput formControlName="description">
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Value</mat-label>
+        <mat-label>Kwota</mat-label>
         <input matInput formControlName="value">
     </mat-form-field>
 
     <mat-radio-group formControlName="isLoan">
-        <mat-radio-button [value]="true">Loan</mat-radio-button>
-        <mat-radio-button [value]="false">Dept</mat-radio-button>
+        <mat-radio-button [value]="true">Pożyczka</mat-radio-button>
+        <mat-radio-button [value]="false">Dług</mat-radio-button>
     </mat-radio-group>
 
     <button 
         mat-raised-button
         color="primary"
         (click)="add()">
-        Add new position to {{ loan.who }}
+        Dodaj nową pozycję dla {{ loan.who }}
     </button>
 </form>
   

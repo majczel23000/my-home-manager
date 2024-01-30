@@ -72,7 +72,11 @@ export class LoansListComponent implements OnInit, OnDestroy {
   }
 
   public removeLoan(loan: LoanModel): void {
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent);
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Na pewno usunąć całą pozycję pożyczki / długu?'
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.loansService.removeLoan(loan);
@@ -81,7 +85,11 @@ export class LoansListComponent implements OnInit, OnDestroy {
   }
 
   public removeElement(loan: LoanModel, index: number): void {
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent);
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: `Na pewno usunąć ${loan.elements[index].isLoan ? 'pożyczkę' : 'dług'}?`
+      }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const loanToUpdate: LoanModel = JSON.parse(JSON.stringify(loan));
