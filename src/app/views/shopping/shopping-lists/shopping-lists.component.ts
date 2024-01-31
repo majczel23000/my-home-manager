@@ -5,14 +5,14 @@ import { Subscription } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog.component.ts/confirm-dialog.component.ts.component';
 import { ShoppingListModel } from 'src/app/shared/models/shopping/shopping-list.model';
 import { ShoppingListService } from 'src/app/shared/services/shopping/shopping-list.service';
-import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   standalone: true,
   imports: [
-    MatListModule,
     MatIconModule,
+    MatCardModule,
   ],
   selector: 'app-shopping-lists',
   templateUrl: './shopping-lists.component.html',
@@ -37,6 +37,7 @@ export class ShoppingListsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.shoppingListService.getShoppingLists().subscribe(res => {
         this.shoppingLists = res;
+        console.log(res);
         this.isLoading.emit(false);
       })
     )
@@ -61,6 +62,12 @@ export class ShoppingListsComponent implements OnInit, OnDestroy {
         this.shoppingListService.deleteShoppingList(shoppingList.id!);
       }
     });
+  }
+
+  // TODO: give ability to edit shopping list name
+  public editShoppingList(shoppingList: ShoppingListModel, event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   ngOnDestroy(): void {

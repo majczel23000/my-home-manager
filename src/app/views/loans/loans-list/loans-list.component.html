@@ -1,46 +1,18 @@
-<mat-accordion class="loans-list" multi="false">
+<section class="loans-list">
     @for(loan of loans; track loan) {
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{ loan?.who }}
-              </mat-panel-title>
-              <mat-panel-description>
-                {{ getSum(loan) }}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
 
-            <mat-list>
-                @for(element of loan.elements; track element; let idx = $index) {
-                    <mat-list-item>
-                        <div class="details-wrapper">
-                            <div class="details-description">
-                                {{ element.description }}
-                            </div>
-                            <div class="details-value">
-                                {{ element.isLoan ? element.value : -element.value }}
-                            </div>
-                            <mat-icon class="material-icons" color="warn" (click)="removeElement(loan, idx)">
-                                close
-                            </mat-icon>
-                        </div>
-                    </mat-list-item>
-                }
-                <mat-divider></mat-divider>
-                <app-loans-position-add 
-                    [loan]="loan"
-                    (positionAdded)="addPositionToLoan($event)"    
-                ></app-loans-position-add>
-                <button class="button-remove"
-                    mat-raised-button
-                    color="warn"
-                    (click)="removeLoan(loan)">
-                    Usuń wszystkie pozycje
-                </button>
-            </mat-list>
-
-          </mat-expansion-panel>
+        <div (click)="goToLoanDetails(loan)">
+            <mat-card>
+                <mat-card-content>
+                    <h2>{{ loan.who }}: {{ getSum(loan) }}</h2>
+                    <span>
+                        <!-- TODO: give ability to edit loan name -->
+                        <!-- <mat-icon class="loan-edit" color="primary" (click)="editLoan(loan, $event)">edit</mat-icon> -->
+                        <mat-icon class="loan-delete" color="warn" (click)="deleteLoan(loan, $event)">close</mat-icon>
+                    </span>
+                </mat-card-content>
+            </mat-card>           
+        </div>
     }
-</mat-accordion>
 
-<app-loans-add></app-loans-add>
+</section>

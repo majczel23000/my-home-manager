@@ -19,6 +19,15 @@ export class LoansService {
     );
   }
 
+  // Get specific loan by id
+  getLoanById(id: string): Observable<LoanModel> {
+    return this.firestore.collection('loans').doc(id).snapshotChanges().pipe(
+      map(changes => {
+        return { id: changes.payload.id, ...changes.payload.data() as LoanModel }
+      })
+    )
+  }
+
   // Update loan by id
   updateLoan(loan: LoanModel): Promise<void> {
     return this.firestore.collection('loans').doc(loan.id).set(loan, { merge: true });

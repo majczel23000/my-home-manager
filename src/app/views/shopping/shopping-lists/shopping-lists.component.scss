@@ -1,36 +1,38 @@
 .shopping-lists {
-    mat-list-item {
-        background: lightgray;
+    padding: 0 10px 20px 10px;
+    display: flex;
+    flex-wrap: wrap-reverse;
+
+    mat-icon {
+        width: auto;
+        height: auto;
     }
-    
-    .list-title, .list-description {
-        margin: 0 10px;
-    }
-    
-    .list-title {
-        font-size: 1.1em;
-    }
-    
-    .list-description {
-        font-size: 1em;
-    }
-    
-    .mat-list-item-content {
-        float: left;
+
+    div {
         width: 100%;
+
+        h2, p {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    
+    mat-card {
+        margin: 10px;
     }
 
-    .list-delete {
-        margin-left: auto;
-    }
-
-    mat-divider {
-        border-top-width: 5px;
-        border-top-color: #fafafa;
-    }
-
-    // Override material styles for span
-    .mdc-list-item__primary-text {
+    mat-card-content {
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .material-icons {
+            font-size: 3em;
+        }
+
+        p {
+            font-size: 1.1em;
+            text-align: center;
+        }
     }
 }

@@ -23,20 +23,20 @@ export class ShoppingListAddComponent {
   protected shoppingListService = inject(ShoppingListService);
 
   public shoppingListToAdd: ShoppingListModel = {
-    description: '',
     name: ''
   };
 
   public addNewShoppingList(): void {
     this.shoppingListService.createShoppingList({
-      description: this.shoppingListToAdd.description,
       name: this.shoppingListToAdd.name,
       products: []
+    }).then(() => {
+      this.shoppingListToAdd.name = '';
     });
   }
 
   public isAddButtonDisabled(): boolean {
-    return !this.shoppingListToAdd.description!.length || !this.shoppingListToAdd.name!.length;
+    return !this.shoppingListToAdd.name!.length;
   }
 
 }

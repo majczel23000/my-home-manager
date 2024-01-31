@@ -3,6 +3,7 @@ import { CurrentLocationComponent } from '../../current-location/current-locatio
 import { ShoppingListAddComponent } from '../shopping-list-add/shopping-list-add.component';
 import { ShoppingListsComponent } from '../shopping-lists/shopping-lists.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   standalone: true,
@@ -11,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ShoppingListAddComponent,
     ShoppingListsComponent,
     MatProgressSpinnerModule,
+    MatDividerModule,
   ],
   selector: 'app-shopping-dashboard',
   templateUrl: './shopping-dashboard.component.html',

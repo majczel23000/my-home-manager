@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CategoryProductModel } from 'src/app/shared/models/shopping/category-products.model';
@@ -39,7 +39,6 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
 
   protected shoppingListService = inject(ShoppingListService);
   protected activatedRoute = inject(ActivatedRoute);
-  protected cdr = inject(ChangeDetectorRef);
   protected router = inject(Router);
 
   protected subscriptions: Subscription[] = [];
@@ -102,7 +101,6 @@ export class ShoppingListDetailsComponent implements OnInit, OnDestroy {
     });
     this.elementsAndCategories = this.elementsAndCategories.filter(element => element.elements?.length);
     this.isLoading = false;
-    // this.cdr.detectChanges();
   }
 
   public addNewProduct(): void {

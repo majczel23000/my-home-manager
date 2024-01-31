@@ -17,6 +17,7 @@
     <button 
         mat-raised-button
         color="primary"
+        [disabled]="positionForm.invalid"
         (click)="add()">
         Dodaj nową pozycję dla {{ loan.who }}
     </button>

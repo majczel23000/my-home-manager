@@ -1,19 +1,17 @@
-<form class="add-shopping-list">
-  <mat-form-field>
-    <mat-label>Nazwa listy zakupów</mat-label>
-    <input matInput [(ngModel)]="shoppingListToAdd.name" name="item">
-  </mat-form-field>
+<section class="add-shopping-list">
+  <h3>Dodaj nową listę zakupów:</h3>
+  <form>
+    <mat-form-field>
+      <mat-label>Nazwa listy zakupów</mat-label>
+      <input matInput [(ngModel)]="shoppingListToAdd.name" name="item">
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Opis listy zakupów</mat-label>
-    <input matInput [(ngModel)]="shoppingListToAdd.description" name="description">
-  </mat-form-field>
-
-  <button 
-    mat-raised-button
-    color="primary"
-    (click)="addNewShoppingList()"
-    [disabled]="isAddButtonDisabled()">
-    Dodaj nową listę
-  </button>
-</form>
+    <button 
+      mat-raised-button
+      color="primary"
+      (click)="addNewShoppingList()"
+      [disabled]="isAddButtonDisabled()">
+      Dodaj
+    </button>
+  </form>
+</section>

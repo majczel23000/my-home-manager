@@ -1,0 +1,99 @@
+.loan-details {
+
+    h3 {
+        margin-left: 10px;
+    }
+
+    .mdc-list-item {
+        padding: 0;
+        border-bottom: 1px solid black;
+        height: auto !important;
+
+        &:first-of-type {
+            border-top: 1px solid black; 
+        }
+    }
+
+    .mat-list-text {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+    }
+    
+    .mat-list-base {
+        padding-top: 0 !important;
+    }
+    
+    .details-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    .details-value {
+        width: 10%;
+        font-size: 0.9em !important;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 3px;
+    
+        @media screen and (max-width: 800px) {
+            width: 15%;
+        }
+        @media screen and (max-width: 550px) {
+            width: 17%;
+        }
+        @media screen and (max-width: 450px) {
+            width: 20%;
+            font-size: 0.8em !important;
+        }
+        @media screen and (max-width: 350px) {
+            width: 30%;
+        }
+    }
+
+    .details-description {
+        width: 90%;
+        white-space: normal;
+        border-right: 1px solid black;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        @media screen and (max-width: 800px) {
+            width: 75%;
+        }
+        @media screen and (max-width: 550px) {
+            width: 71%;
+        }
+        @media screen and (max-width: 450px) {
+            width: 65%;
+            font-size: 0.8em !important;
+        }
+        @media screen and (max-width: 350px) {
+            width: 55%;
+        }
+    }
+
+    .details-button {
+        width: 10%;
+
+        @media screen and (max-width: 800px) {
+            width: 10%;
+        }
+        @media screen and (max-width: 550px) {
+            width: 12%;
+        }
+        @media screen and (max-width: 450px) {
+            width: 15%;
+            font-size: 0.8em !important;
+        }
+        @media screen and (max-width: 350px) {
+            width: 15%;
+        }
+    }
+}

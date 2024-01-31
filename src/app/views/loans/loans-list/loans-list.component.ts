@@ -1,18 +1,19 @@
 import { Component, EventEmitter, Output, inject, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LoanModel, LoanPositionModel } from 'src/app/shared/models/loans/loan.model';
+import { LoanModel } from 'src/app/shared/models/loans/loan.model';
 import { LoansService } from 'src/app/shared/services/loans/loans.service';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { LoansPositionAddComponent } from '../loans-position-add/loans-position-add.component';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog.component.ts/confirm-dialog.component.ts.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LoansAddComponent } from "../loans-add/loans-add.component";
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-loans-list',
@@ -29,14 +30,15 @@ import { MatButtonModule } from '@angular/material/button';
         MatInputModule,
         LoansPositionAddComponent,
         ConfirmDialogComponent,
-        LoansAddComponent,
         MatButtonModule,
+        MatCardModule,
     ]
 })
 export class LoansListComponent implements OnInit, OnDestroy {
 
   protected loansService = inject(LoansService);
   protected matDialog = inject(MatDialog);
+  protected router = inject(Router);
 
   @Output() isLoading = new EventEmitter<boolean>();
   protected subscriptions: Subscription[] = [] as Subscription[];
@@ -55,6 +57,28 @@ export class LoansListComponent implements OnInit, OnDestroy {
     )
   }
 
+  public goToLoanDetails(loan: LoanModel): void {
+    if (loan.id) {
+      this.router.navigateByUrl(`/loans/${loan.id}`);
+    }
+  }
+
+  public deleteLoan(loan: LoanModel, event: any): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Na pewno usunąć pozycję?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loansService.removeLoan(loan);
+      }
+    });
+  }
+
   public getSum(loan: LoanModel): number {
     let result = 0;
     loan.elements.forEach(element => {
@@ -65,38 +89,6 @@ export class LoansListComponent implements OnInit, OnDestroy {
       }
     });
     return result;
-  }
-
-  public addPositionToLoan(loan: LoanModel): void {
-    this.loansService.updateLoan(loan);
-  }
-
-  public removeLoan(loan: LoanModel): void {
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Na pewno usunąć całą pozycję pożyczki / długu?'
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loansService.removeLoan(loan);
-      }
-    });
-  }
-
-  public removeElement(loan: LoanModel, index: number): void {
-    const dialogRef = this.matDialog.open(ConfirmDialogComponent, {
-      data: {
-        title: `Na pewno usunąć ${loan.elements[index].isLoan ? 'pożyczkę' : 'dług'}?`
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const loanToUpdate: LoanModel = JSON.parse(JSON.stringify(loan));
-        loanToUpdate.elements.splice(index, 1);
-        this.loansService.updateLoan(loanToUpdate);
-      }
-    });
   }
   
   ngOnDestroy(): void {

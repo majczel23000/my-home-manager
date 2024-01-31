@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
@@ -8,7 +7,6 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    MatGridListModule,
     MatIconModule,
     MatCardModule,
   ],

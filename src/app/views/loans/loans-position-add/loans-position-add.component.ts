@@ -47,6 +47,8 @@ export class LoansPositionAddComponent {
       description: this.positionForm.value.description!,
     });
 
+    this.positionForm.reset();
+
     this.positionAdded.emit(loanToUpdate);
   }
 

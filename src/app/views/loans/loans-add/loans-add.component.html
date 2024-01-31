@@ -1,13 +1,17 @@
-<form class="add-loan" [formGroup]="loanForm">
-    <mat-form-field>
-        <mat-label>Kto</mat-label>
-        <input matInput formControlName="who">
-    </mat-form-field>
+<section class="add-loan">
+    <h3>Dodaj nową pozycję</h3>
+    <form [formGroup]="loanForm">
+        <mat-form-field>
+            <mat-label>Kto</mat-label>
+            <input matInput formControlName="who">
+        </mat-form-field>
 
-    <button 
-        mat-raised-button
-        color="primary"
-        (click)="add()">
-        Dodaj nową pustą pozycję
-    </button>
-</form>
+        <button 
+            mat-raised-button
+            color="primary"
+            [disabled]="isAddButtonDisabled()"
+            (click)="add()">
+            Dodaj
+        </button>
+    </form>
+</section>

@@ -25,6 +25,10 @@ export const ROUTES: Routes = [
             {
                 path: '',
                 loadComponent: () => import('./views/loans/loans-dashboard/loans-dashboard.component').then(mod => mod.LoansDashboardComponent),
+            },
+            {
+                path: ':id',
+                loadComponent: () => import('./views/loans/loan-details/loan-details.component').then(mod => mod.LoanDetailsComponent),
             }
         ]
     },

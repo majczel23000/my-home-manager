@@ -1,18 +1,16 @@
-<mat-list class="shopping-lists">
+<div class="shopping-lists">
     @for(shoppingList of shoppingLists; track shoppingList) {
-        <mat-list-item  (click)="goToShoppingListDetails(shoppingList)">
-            <mat-icon>shopping_cart</mat-icon>
-            <div class="list-title">
-                {{ shoppingList.name }}
-            </div>
-            <div>
-                |
-            </div>
-            <div class="list-description">
-                {{ shoppingList.description }}
-            </div>
-            <mat-icon class="list-delete" color="warn" (click)="deleteShoppingList(shoppingList, $event)">close</mat-icon>
-        </mat-list-item>
-        <mat-divider></mat-divider>
+        <div (click)="goToShoppingListDetails(shoppingList)">
+            <mat-card>
+                <mat-card-content>
+                    <h2>{{ shoppingList.name }}</h2>
+                    <span>
+                        <!-- TODO: give ability to edit shopping list name -->
+                        <!-- <mat-icon class="list-edit" color="primary" (click)="editShoppingList(shoppingList, $event)">edit</mat-icon> -->
+                        <mat-icon class="list-delete" color="warn" (click)="deleteShoppingList(shoppingList, $event)">close</mat-icon>
+                    </span>
+                </mat-card-content>
+            </mat-card>           
+        </div>
     }
-</mat-list>
+</div>

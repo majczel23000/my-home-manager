@@ -1,7 +1,6 @@
 export interface ShoppingListModel {
   id?: string;
   name?: string;
-  description?: string;
   products?: ProductModel[];
 }
 

@@ -1,0 +1,33 @@
+<app-current-location [location]="'Pożyczki / Długi: '" [name]="loan.who"></app-current-location>
+
+@if(!isLoading) {
+  <div class="loan-details">
+    <h3>Suma: <b>{{ getSum() }}</b></h3>
+    <mat-list>
+        @for(element of loan.elements; track element; let idx = $index) {
+            <mat-list-item>
+                <div class="details-wrapper">
+                    <div class="details-value">
+                        {{ element.isLoan ? element.value : -element.value }}
+                    </div>
+                    <div class="details-description">
+                        {{ element.description }}
+                    </div>
+                    <button class="details-button" mat-icon-button color="warn" (click)="removeElement(loan, idx)">
+                        <mat-icon class="material-icons">close</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
+        }
+        <mat-divider></mat-divider>
+        <app-loans-position-add 
+            [loan]="loan"
+            (positionAdded)="addPositionToLoan($event)"    
+        ></app-loans-position-add>
+    </mat-list>
+
+  </div>
+}
+@else {
+  <mat-spinner></mat-spinner>
+}

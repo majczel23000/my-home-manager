@@ -103,12 +103,6 @@ describe('ShoppingListsComponent', () => {
     expect(listTitle.nativeElement.innerText).toBe(mockShoppingLists[0].name);
   });
 
-  it('should render correct shopping list description', () => {
-    const listElement = fixture.debugElement.query(By.css('mat-list-item'));
-    const listTitle = listElement.query(By.css('.list-description'));
-    expect(listTitle.nativeElement.innerText).toBe(mockShoppingLists[0].description);
-  });
-
   it('should display dialog on delete shopping list icon click', () => {
     const openDialogSpy = spyOn(TestBed.inject(MatDialog), 'open');
     const listElements = fixture.debugElement.queryAll(By.css('mat-list-item'));

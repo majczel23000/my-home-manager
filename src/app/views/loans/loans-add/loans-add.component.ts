@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { LoanModel, LoanPositionModel } from 'src/app/shared/models/loans/loan.model';
+import { Component, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -39,7 +38,11 @@ export class LoansAddComponent {
     this.loansService.createLoan({
       who: this.loanForm.value.who!,
       elements: [],
-    });
+    }).then(() => this.loanForm.controls.who.setValue(''));
+  }
+
+  public isAddButtonDisabled(): boolean {
+    return !this.loanForm.value.who;
   }
 
 }
