@@ -37,7 +37,6 @@ export class ShoppingListsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.shoppingListService.getShoppingLists().subscribe(res => {
         this.shoppingLists = res;
-        console.log(res);
         this.isLoading.emit(false);
       })
     )
