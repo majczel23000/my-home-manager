@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ShoppingListAddComponent } from './shopping-list-add.component';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
+import { importProvidersFrom } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ShoppingListAddComponent', () => {
   let component: ShoppingListAddComponent;
@@ -12,11 +12,13 @@ describe('ShoppingListAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShoppingListAddComponent ],
       imports: [
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
         RouterTestingModule,
+        ShoppingListAddComponent
+      ],
+      providers: [
+        importProvidersFrom([AngularFireModule.initializeApp(environment.firebaseConfig)]),
+        provideAnimations(),
       ]
     })
     .compileComponents();

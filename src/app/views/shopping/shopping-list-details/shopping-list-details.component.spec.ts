@@ -12,11 +12,11 @@ describe('ShoppingListDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ShoppingListDetailsComponent ],
       imports: [
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         RouterTestingModule,
+        ShoppingListDetailsComponent
       ]
     })
     .compileComponents();

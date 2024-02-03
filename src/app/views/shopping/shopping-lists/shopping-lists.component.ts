@@ -23,7 +23,7 @@ export class ShoppingListsComponent implements OnInit, OnDestroy {
 
   protected shoppingListService = inject(ShoppingListService);
   protected router = inject(Router);
-  protected matDialog = inject(MatDialog);
+  public matDialog = inject(MatDialog);
 
   @Output() isLoading = new EventEmitter<boolean>();
   public shoppingLists: ShoppingListModel[] = [] as ShoppingListModel[];

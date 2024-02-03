@@ -3,6 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingDashboardComponent } from './shopping-dashboard.component';
 import { By } from '@angular/platform-browser';
 import { CurrentLocationComponent } from '../../current-location/current-location.component';
+import { importProvidersFrom } from '@angular/core';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 describe('ShoppingDashboardComponent', () => {
   let component: ShoppingDashboardComponent;
@@ -10,9 +14,13 @@ describe('ShoppingDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ 
+      imports: [ 
         ShoppingDashboardComponent,
         CurrentLocationComponent,
+      ],
+      providers: [
+        importProvidersFrom([AngularFireModule.initializeApp(environment.firebaseConfig)]),
+        provideAnimations(),
       ]
     })
     .compileComponents();
@@ -33,7 +41,7 @@ describe('ShoppingDashboardComponent', () => {
 
   it('should contain current location component with proper text', () => {
     const currentLocation = fixture.debugElement.query(By.css('app-current-location'));
-    expect(currentLocation.componentInstance.location).toBe('Shopping lists');
+    expect(currentLocation.componentInstance.location).toBe('Listy zakupów');
   });
 
   it('should be in loading state by default', () => {
