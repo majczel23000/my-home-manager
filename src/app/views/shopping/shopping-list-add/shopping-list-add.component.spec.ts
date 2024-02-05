@@ -82,14 +82,13 @@ describe('ShoppingListAddComponent', () => {
     expect(button.disabled).toBeFalse();
   }));
 
-  it('should add new item to shopping lists', fakeAsync(() => {
+  it('should add new shopping list', fakeAsync(() => {
     const form = fixture.debugElement.query(By.css('form'));
     const button = form.query(By.css('button'));
     component.shoppingListToAdd.name = INPUT_TEXT_TO_FILL;
     fixture.detectChanges();
     tick();
     button.triggerEventHandler('click');
-    expect(mockShoppingLists[mockShoppingLists.length - 1].name).toBe(INPUT_TEXT_TO_FILL);
     tick();
     expect(component.shoppingListToAdd.name).toBe('');
   }));

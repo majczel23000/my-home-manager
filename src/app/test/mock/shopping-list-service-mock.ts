@@ -9,25 +9,39 @@ import { mockCategories } from "./categories-mock";
 
 @Injectable()
 export class MockShoppingListService extends ShoppingListService {
-  override getShoppingLists(): Observable<ShoppingListModel[]> {
-    return of(mockShoppingLists);
+
+  public data: ShoppingListModel[] = [];
+  constructor() {
+    super();
+    this.data = JSON.parse(JSON.stringify(mockShoppingLists));
   }
-  
+
+  override getShoppingLists(): Observable<ShoppingListModel[]> {
+    return of(this.data);
+  }
+
   override deleteShoppingList(id: string): Promise<void> {
-    mockShoppingLists.splice(parseInt(id), 1);
+    this.data.splice(parseInt(id)
+, 1);
     return Promise.resolve();
   }
 
   override createShoppingList(shoppingList: ShoppingListModel): Promise<void | DocumentReference<unknown>> {
-    mockShoppingLists.push(shoppingList);
+    this.data.push(shoppingList);
     return Promise.resolve();
   }
 
   override getShoppingListById(id: string): Observable<ShoppingListModel> {
-    return of(mockShoppingLists.find(el => el.id === id)!);
+    return of(this.data.find(el => el.id === id)!);
   }
 
   override getCategories(): Observable<CategoryModel[]> {
     return of(mockCategories);
+  }
+
+  override updateShoppingList(shoppingList: ShoppingListModel): Promise<void> {
+    const idx = this.data.findIndex(el => el.id === shoppingList.id);
+    this.data[idx] = shoppingList;
+    return Promise.resolve();
   }
 }

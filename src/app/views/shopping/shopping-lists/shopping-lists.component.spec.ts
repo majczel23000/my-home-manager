@@ -84,7 +84,7 @@ describe('ShoppingListsComponent', () => {
     expect(openDialogSpy).toHaveBeenCalled();
     fixture.detectChanges();
     const listsAfterDelete = fixture.debugElement.queryAll(By.css('mat-card'));
-    expect(listsAfterDelete.length).toBe(mockShoppingLists.length);
+    expect(listsAfterDelete.length).toBe(component.shoppingLists.length);
   });
 
   it('should navigate to first shopping list details on click', () => {
@@ -95,3 +95,4 @@ describe('ShoppingListsComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith(`/shopping/${mockShoppingLists[0].id}`);
   });
 });
+

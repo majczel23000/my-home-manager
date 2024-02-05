@@ -92,31 +92,48 @@ describe('ShoppingListDetailsComponent', () => {
     expect(categoriesTitles.length).toBe(categories.length);
   });
 
-  it('should change background to red and change text style after product click', () => {
-    
+  it('should change background to red and change text style after product click and reverse', () => {
+    const item = fixture.debugElement.query(By.css('mat-list-item'));
+    item.triggerEventHandler('click');
+    fixture.detectChanges();
+    expect(item.nativeElement.style.backgroundColor).toBe('rgb(255, 167, 161)');
+    const details = item.query(By.css('.details-item'));
+    expect(details.nativeElement.style.textDecoration).toBe('line-through');
+    item.triggerEventHandler('click');
+    fixture.detectChanges();
+    expect(item.nativeElement.style.backgroundColor).toBe('');
+    expect(details.nativeElement.style.textDecoration).toBe('');
   });
 
-  it('should delete product', () => {
-    
+  it('should point correct amount of products after deleting one', () => {
+    const items = fixture.debugElement.queryAll(By.css('mat-list-item'));
+    const productsBefore = component.shoppingList.products!.length;
+    expect(items.length).toBe(productsBefore);
+    const button = items[0].query(By.css('.details-button'));
+    button.triggerEventHandler('click', {
+      preventDefault(): void {},
+      stopPropagation(): void {},
+    });
+    expect(component.shoppingList.products!.length).toBe(productsBefore - 1);
   });
 
   it('should render form for adding product', () => {
-    
+
   });
 
   it('should render button with disabled state by default for adding product ', () => {
-    
+
   });
 
   it('should render button for adding product', () => {
-    
+
   });
 
   it('should render select with proper categories', () => {
-    
+
   });
 
   it('should add new product to shopping list', () => {
-    
+
   });
 });
