@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ShoppingListDetailsComponent } from './shopping-list-details.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,7 @@ import { ROUTES } from 'src/app/routes';
 import { ShoppingListService } from 'src/app/shared/services/shopping/shopping-list.service';
 import { MockShoppingListService } from 'src/app/test/mock/shopping-list-service-mock';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { mockCategories } from 'src/app/test/mock/categories-mock';
 
 describe('ShoppingListDetailsComponent', () => {
   let component: ShoppingListDetailsComponent;
@@ -105,7 +106,7 @@ describe('ShoppingListDetailsComponent', () => {
     expect(details.nativeElement.style.textDecoration).toBe('');
   });
 
-  it('should point correct amount of products after deleting one', () => {
+  it('should have correct amount of products after deleting one', () => {
     const items = fixture.debugElement.queryAll(By.css('mat-list-item'));
     const productsBefore = component.shoppingList.products!.length;
     expect(items.length).toBe(productsBefore);
@@ -118,22 +119,36 @@ describe('ShoppingListDetailsComponent', () => {
   });
 
   it('should render form for adding product', () => {
-
+    const form = fixture.debugElement.query(By.css('form.add-shopping-list'));
+    expect(form).toBeTruthy();
   });
 
   it('should render button with disabled state by default for adding product ', () => {
-
+    const form = fixture.debugElement.query(By.css('form.add-shopping-list'));
+    const button = form.query(By.css('button'));
+    expect(button.nativeElement.disabled).toBeTrue();
   });
 
-  it('should render button for adding product', () => {
-
-  });
-
-  it('should render select with proper categories', () => {
-
+  it('should render mat-options after clicking on select with categories', () => {
+    const matSelect = fixture.debugElement.query(By.css('mat-select'));
+    expect(matSelect).toBeTruthy();
+    matSelect.nativeElement.click();
+    fixture.detectChanges();
+    const matOptions = fixture.debugElement.queryAll(By.css('mat-option'));
+    expect(matOptions.length).toBe(mockCategories.length);
   });
 
   it('should add new product to shopping list', () => {
-
+    const NEW_PRODUCT_NAME = 'New product';
+    const NEW_PRODUCT_QUANTITY = '2';
+    const NEW_PRODUCT_CATEGORY = mockCategories[0].name;
+    component.addedProduct.item = NEW_PRODUCT_NAME;
+    component.addedProduct.quantity = NEW_PRODUCT_QUANTITY;
+    component.addedProduct.category = NEW_PRODUCT_CATEGORY;
+    const button = fixture.debugElement.query(By.css('form')).query(By.css('button'));
+    button.triggerEventHandler('click');
+    fixture.detectChanges();
+    const matListItems = fixture.debugElement.queryAll(By.css('mat-list-item'));
+    expect(matListItems.length).toBe(component.shoppingList.products!.length)
   });
 });

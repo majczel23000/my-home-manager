@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { ShoppingListModel } from "src/app/shared/models/shopping/shopping-list.model";
 import { ShoppingListService } from "src/app/shared/services/shopping/shopping-list.service";
 import { mockShoppingLists } from "./shopping-lists-data-mock";
@@ -10,29 +10,35 @@ import { mockCategories } from "./categories-mock";
 @Injectable()
 export class MockShoppingListService extends ShoppingListService {
 
-  public data: ShoppingListModel[] = [];
+  public dataBS: BehaviorSubject<ShoppingListModel[]>;
+  public dataSingleBS: BehaviorSubject<ShoppingListModel>;
+  public mock: ShoppingListModel[] = [];
+  
   constructor() {
     super();
-    this.data = JSON.parse(JSON.stringify(mockShoppingLists));
+    this.mock = JSON.parse(JSON.stringify(mockShoppingLists));
+    this.dataBS = new BehaviorSubject(this.mock);
+    this.dataSingleBS = new BehaviorSubject(this.mock[0]);
   }
 
   override getShoppingLists(): Observable<ShoppingListModel[]> {
-    return of(this.data);
+    return this.dataBS.asObservable();
   }
 
   override deleteShoppingList(id: string): Promise<void> {
-    this.data.splice(parseInt(id)
-, 1);
+    this.mock.splice(parseInt(id), 1);
+    this.dataBS.next(this.mock);
     return Promise.resolve();
   }
 
   override createShoppingList(shoppingList: ShoppingListModel): Promise<void | DocumentReference<unknown>> {
-    this.data.push(shoppingList);
+    this.mock.push(shoppingList);
+    this.dataBS.next(this.mock);
     return Promise.resolve();
   }
 
   override getShoppingListById(id: string): Observable<ShoppingListModel> {
-    return of(this.data.find(el => el.id === id)!);
+    return this.dataSingleBS.asObservable();
   }
 
   override getCategories(): Observable<CategoryModel[]> {
@@ -40,8 +46,9 @@ export class MockShoppingListService extends ShoppingListService {
   }
 
   override updateShoppingList(shoppingList: ShoppingListModel): Promise<void> {
-    const idx = this.data.findIndex(el => el.id === shoppingList.id);
-    this.data[idx] = shoppingList;
+    // const idx = this.mock.findIndex(el => el.id === shoppingList.id);
+    this.mock[0] = shoppingList;
+    this.dataSingleBS.next(this.mock[0]);
     return Promise.resolve();
   }
 }
