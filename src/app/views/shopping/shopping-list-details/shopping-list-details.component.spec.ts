@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingListDetailsComponent } from './shopping-list-details.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
@@ -94,14 +94,22 @@ describe('ShoppingListDetailsComponent', () => {
   });
 
   it('should change background to red and change text style after product click and reverse', () => {
-    const item = fixture.debugElement.query(By.css('mat-list-item'));
+    let item = fixture.debugElement.query(By.css('mat-list-item'));
+    let details = item.query(By.css('.details-item'));
+    expect(item.nativeElement.style.backgroundColor).toBe('');
+    expect(details.nativeElement.style.textDecoration).toBe('');
     item.triggerEventHandler('click');
     fixture.detectChanges();
+    // needs to query one more time because of rerendering ngFor strructure, so old mat-list-items does not exist
+    item = fixture.debugElement.query(By.css('mat-list-item'));
+    details = item.query(By.css('.details-item'));
     expect(item.nativeElement.style.backgroundColor).toBe('rgb(255, 167, 161)');
-    const details = item.query(By.css('.details-item'));
     expect(details.nativeElement.style.textDecoration).toBe('line-through');
     item.triggerEventHandler('click');
     fixture.detectChanges();
+    // same here, get new mat-list-item after rerender of ngFor
+    item = fixture.debugElement.query(By.css('mat-list-item'));
+    details = item.query(By.css('.details-item'));
     expect(item.nativeElement.style.backgroundColor).toBe('');
     expect(details.nativeElement.style.textDecoration).toBe('');
   });
